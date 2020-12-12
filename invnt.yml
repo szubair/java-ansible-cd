@@ -3,6 +3,6 @@ localhost
 [myhosts]
 localhost
 
-[target1]
+[target]
 #redhat7-server
 10.128.15.192

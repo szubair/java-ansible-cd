@@ -1,6 +1,7 @@
 ---
-- hosts: target1
+- hosts: target
   user: ubuntu
   become: yes
   roles:
-    - nginx
+    - prerequsites
+    - galaxy.mysql
