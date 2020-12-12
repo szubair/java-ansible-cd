@@ -1,1 +1,1 @@
-# java-ansible-cd
+# test your deployment using ansible roles. Happy coding!
