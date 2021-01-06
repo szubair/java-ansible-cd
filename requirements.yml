@@ -1,0 +1,3 @@
+- src: idealista.prometheus_jmx_exporter_role
+  version: 2.1.2
+  name: prometheus_jmx_exporter

@@ -1,0 +1,36 @@
+---
+- hosts: target
+  user: ubuntu
+  become: yes
+  ## varibales
+  vars:
+    db_sqlite3_data: "files/testDB.db"
+    db_sqlite3_path: "/tmp/ignition/testDB.db"
+    crud_script_path: "/tmp/ignition/run-crud.sh"
+    #table_name: "DEPARTMENT"
+    #table_name: "company"
+
+  ## write your tasks here
+  tasks:
+  - name: copy shell script to remote host
+    copy: src=files/run-crud.sh dest=/tmp/ignition mode=0755
+  ## copy files into remote server
+  - name : Copy Database Datafile
+    copy:
+      src: "{{ db_sqlite3_data }}"
+      dest: /tmp/ignition/
+      owner: root
+      group: root
+      mode: 0644
+  ## sqllite3 example
+  - name: sample task in sqlite3
+    command: sqlite3 -header -column {{ db_sqlite3_path }} "select * from company;"
+    register: stuff
+  - debug: var=stuff
+
+  ## run bash shell script
+  - name: insert statement using bash script
+    command: sh "{{ crud_script_path }}" 
+    register: output
+
+  - debug: var=output.stdout_lines

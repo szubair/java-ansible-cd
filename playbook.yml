@@ -4,4 +4,4 @@
   become: yes
   roles:
     - prerequsites
-    - galaxy.mysql
+    - ansible-jmx-exporter

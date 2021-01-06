@@ -1,0 +1,34 @@
+---
+- hosts: target
+  user: ubuntu
+  become: yes
+  ## varibales
+  vars:
+    db_sqlite3_data: "files/testDB.db"
+    crud_script_path: "/tmp/ignition/files/run-script.py"
+    crud_bash_path: "/tmp/ignition/files/run-crud.sh"
+    #table_name: "DEPARTMENT"
+    #table_name: "company"
+
+  ## write your tasks here
+  tasks:
+  - name: copy shell script to remote host
+    copy: src=files/run-crud.sh dest=/tmp/ignition mode=0755
+  ## copy files into remote server
+  - name: copy folder ...
+    copy: src=files dest=/tmp/ignition
+
+  - name: insert statement using bash script
+    command: bash "{{ crud_bash_path }}"
+    register: bash_output
+ 
+  - debug: var=bash_output.stdout_lines
+
+  ## run python script
+  - name: run python script
+    command: python "{{ crud_script_path }}" 
+    register: output
+
+  - debug: var=output.stdout_lines
+
+

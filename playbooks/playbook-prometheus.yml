@@ -1,0 +1,20 @@
+---
+- hosts: target
+  user: ubuntu
+  become: yes
+  ## varibales
+  vars:
+    db_sqlite3_data: "files/testDB.db"
+    crud_script_path: "/tmp/ignition/files/run-script.py"
+    #table_name: "DEPARTMENT"
+    #table_name: "company"
+    prometheus_targets:
+      node:
+      - targets:
+        - localhost:9100
+        - demo.cloudalchemy.org:9100
+        labels:
+          env: demosite
+  roles:
+    - basic-install
+    - prometheus
